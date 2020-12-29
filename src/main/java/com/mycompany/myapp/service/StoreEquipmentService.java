@@ -1,7 +1,9 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Store;
 import com.mycompany.myapp.domain.StoreEquipment;
 import com.mycompany.myapp.repository.StoreEquipmentRepository;
+import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,6 +38,16 @@ public class StoreEquipmentService {
      */
     public StoreEquipment save(StoreEquipment storeEquipment) {
         log.debug("Request to save StoreEquipment : {}", storeEquipment);
+
+        Long storeId = storeEquipment.getStore().getId();
+
+        StoreEquipment storeEquipmentExistente = storeEquipmentRepository.findFirstByEquipmentNameAndStoreId(storeEquipment.getEquipmentName(), storeId);
+
+        if (Objects.nonNull(storeEquipmentExistente)) {
+            throw new BadRequestAlertException("Somente um equipamento com nome Ar Condicionado Central permitido.", "storeEquipment",
+                "equipmentnameinuse");
+        }
+
         return storeEquipmentRepository.save(storeEquipment);
     }
 

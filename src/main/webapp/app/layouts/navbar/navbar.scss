@@ -17,6 +17,7 @@ Navbar
 
 .navbar {
   padding: 0.2rem 1rem;
+  background-color: #f8f9fa;
 
   ul.navbar-nav {
     .nav-item {
@@ -37,6 +38,6 @@ Logo styles
   width: 45px;
   display: inline-block;
   vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  background: url('../../../content/images/acme-logo-vector.svg') no-repeat center center;
   background-size: contain;
 }

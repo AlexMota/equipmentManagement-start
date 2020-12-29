@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
@@ -22,6 +22,8 @@ export class StoreEquipmentComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
+  @Input()
+  storeId: number | undefined;
 
   constructor(
     protected storeEquipmentService: StoreEquipmentService,
@@ -40,12 +42,15 @@ export class StoreEquipmentComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    let req = {
+      page: this.page,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+    this.storeId != null && this.storeId > 0 ? (req['storeId.equals'] = this.storeId) : (req = req);
+
     this.storeEquipmentService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(req)
       .subscribe((res: HttpResponse<IStoreEquipment[]>) => this.paginateStoreEquipments(res.body, res.headers));
   }
 

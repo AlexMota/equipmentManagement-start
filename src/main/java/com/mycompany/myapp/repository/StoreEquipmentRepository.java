@@ -11,4 +11,8 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface StoreEquipmentRepository extends JpaRepository<StoreEquipment, Long>, JpaSpecificationExecutor<StoreEquipment> {
+
+
+    public StoreEquipment findFirstByEquipmentNameAndStoreId(String equipmentName, Long storeId);
+
 }

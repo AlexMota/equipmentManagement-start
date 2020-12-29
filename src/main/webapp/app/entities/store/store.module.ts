@@ -6,10 +6,12 @@ import { StoreComponent } from './store.component';
 import { StoreDetailComponent } from './store-detail.component';
 import { StoreUpdateComponent } from './store-update.component';
 import { StoreDeleteDialogComponent } from './store-delete-dialog.component';
-import { storeRoute } from './store.route';
+import { StoreRoute, storeRoute } from './store.route';
+import { EquipmentManagementStoreEquipmentModule } from '../store-equipment/store-equipment.module';
+import { StoreEquipmentComponent } from '../store-equipment/store-equipment.component';
 
 @NgModule({
-  imports: [EquipmentManagementSharedModule, RouterModule.forChild(storeRoute)],
+  imports: [StoreRoute, EquipmentManagementStoreEquipmentModule, EquipmentManagementSharedModule],
   declarations: [StoreComponent, StoreDetailComponent, StoreUpdateComponent, StoreDeleteDialogComponent],
   entryComponents: [StoreDeleteDialogComponent],
 })
